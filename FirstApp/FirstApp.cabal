@@ -44,7 +44,9 @@ cabal-version:       >=1.8
 
 executable FirstApp
   -- .hs or .lhs file containing the Main module.
-  main-is: Main.hs           
+  main-is: Main.hs   
+
+  other-modules: Helpers        
   
   -- Modules included in this executable, other than Main.
   -- other-modules:       
@@ -54,6 +56,7 @@ executable FirstApp
   
   -- Directories containing source files.
   hs-source-dirs:      src
+                       src/Utils
 
   ghc-options:		   -W
   
