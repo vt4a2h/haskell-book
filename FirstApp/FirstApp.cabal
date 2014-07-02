@@ -52,7 +52,7 @@ executable FirstApp
   -- other-modules:       
   
   -- Other library packages from which modules are imported.
-  build-depends:       base ==4.6.*, text, MissingH
+  build-depends:       base ==4.6.*, text, MissingH, tuple
   
   -- Directories containing source files.
   hs-source-dirs:      src

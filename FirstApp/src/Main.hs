@@ -72,18 +72,43 @@
 -- URL example
 --
 
-import Data.Char
-import Data.String.Utils
+--import Data.Char
+--import Data.String.Utils
 
-add_prefix :: String -> String
-add_prefix url = 
-	if startswith prefix url then url else prefix ++ url
-	where prefix = "http://"
+--add_prefix :: String -> String
+--add_prefix url = 
+--	if startswith prefix url then url else prefix ++ url
+--	where prefix = "http://"
 
-encode_all_spaces = \url -> replace " " "%20" url
+--encode_all_spaces = \url -> replace " " "%20" url
 
-make_it_lower_case = \url -> map toLower url
+--make_it_lower_case = \url -> map toLower url
 
-main =
-	putStrLn $ add_prefix  $ encode_all_spaces  $ make_it_lower_case url
-	where url = "www.SITE.com/test me/Start page"
+--main =
+--	putStrLn $ add_prefix $ encode_all_spaces $ make_it_lower_case url
+--	where url = "www.SITE.com/test me/Start page"
+
+--
+-- list example
+--
+
+--this_is_a_wild_animal :: String -> Bool
+--this_is_a_wild_animal name =
+--	name `elem` wild_animals
+--	where wild_animals = ["Bear", "Tiger", "Lion", "Wolf"]
+
+--remove_all_empty_names_from :: [String] -> [String]
+--remove_all_empty_names_from list_of_names = 
+--	filter not_empty_name list_of_names
+--	where not_empty_name = \name -> not $ null name
+
+--main = 
+--	print [2, 4 .. 30]
+
+--
+-- tuple
+--
+
+import Data.Tuple.Select
+
+main  = print $ sel3 ("one", "two", "three", "four")
