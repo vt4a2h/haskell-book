@@ -156,24 +156,47 @@
 -- types
 --
 
-data IP_address = IP String | Host String
+--data IP_address = IP String | Host String
 
-instance Show IP_address where
-	show (IP address) =
-	    address
+--instance Show IP_address where
+--	show (IP address) =
+--	    address
 
-	show (Host address) =
-		if address == "127.0.0.1" then "localhost" else address
+--	show (Host address) =
+--		if address == "127.0.0.1" then "localhost" else address
 
-data Transport_layer = TCP | UDP | SCTP | DCCP | SPX
+--data Transport_layer = TCP | UDP | SCTP | DCCP | SPX
 
-description_of :: Transport_layer -> String
-description_of protocol = 
-	case protocol of 
-	    TCP  -> "Transmission Control Protocol"
-	    UDP  -> "User Datagram Protocol"
-	    SCTP -> "Stream Control Transmission Protocol"
-	    DCCP -> "Datagram Congestion Control Protocol"
-	    SPX  -> "Sequenced Packet Exchange"
+--description_of :: Transport_layer -> String
+--description_of protocol = 
+--	case protocol of 
+--	    TCP  -> "Transmission Control Protocol"
+--	    UDP  -> "User Datagram Protocol"
+--	    SCTP -> "Stream Control Transmission Protocol"
+--	    DCCP -> "Datagram Congestion Control Protocol"
+--	    SPX  -> "Sequenced Packet Exchange"
 
-main = print [description_of protocol | protocol <- [TCP, UDP, SCTP, DCCP, SPX]]
+--main = print [description_of protocol | protocol <- [TCP, UDP, SCTP, DCCP, SPX]]
+
+--
+--composite types
+--
+
+data User = User {
+                  first_name, 
+                  last_name,
+                  email :: String,
+                  account,
+                  uid :: Integer
+                  }
+
+change_email :: User -> String -> User
+change_email user new_email = user { email = new_email }
+
+main =
+	print $ first_name user ++ " "  ++
+	        last_name user  ++ ", " ++
+	        email user
+	where user = User { first_name = "Vitaly",
+	                    last_name  = "Fanaskov",
+	                    email      = "v@v.com" }
