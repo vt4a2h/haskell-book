@@ -109,6 +109,30 @@
 -- tuple
 --
 
-import Data.Tuple.Select
+--import Data.Tuple.Select
 
-main  = print $ sel3 ("one", "two", "three", "four")
+--main  = print $ sel3 ("one", "two", "three", "four")
+
+--
+-- sly list =)
+--
+
+import Data.Char
+
+--main = print [toUpper c | c <- "http", c == 't', c /= 'h']
+
+--main = 
+--	print [prefix ++ name | name <- names, prefix <- name_prefix]
+--	where names = ["James", "Victor", "Denis", "Michael"]
+--	      name_prefix = ["Mr. "]
+
+--main = 
+--	print [if car == "Bently" then "Wow!" else "Good!" | car <- cars]
+--	where cars = ["Mercedes",
+--	              "BMW",
+--	              "Bently",
+--	              "Audi",
+--	              "Bently"]
+
+
+
