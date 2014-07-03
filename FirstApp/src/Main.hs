@@ -117,7 +117,7 @@
 -- sly list =)
 --
 
-import Data.Char
+--import Data.Char
 
 --main = print [toUpper c | c <- "http", c == 't', c /= 'h']
 
@@ -134,5 +134,20 @@ import Data.Char
 --	              "Audi",
 --	              "Bently"]
 
+import Data.String.Utils
 
+ends_with :: String -> String -> Bool
+ends_with str suffix = endswith suffix str
 
+check_googler_by :: String -> String
+check_googler_by email = 
+	if email `ends_with` "gmail.com"
+	then name_from email ++ " is a Googler!"
+	else email
+	where name_from = \full_email -> takeWhile (/= '@') full_email
+
+main = print [check_googler_by email | email <- ["adam@gmail.com",
+                                                 "bob@gmail.com",
+                                                 "richard@gmail.com",
+                                                 "elena@yandex.ru",
+                                                 "denis@gmail.com"]]
