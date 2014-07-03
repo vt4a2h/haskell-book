@@ -134,20 +134,46 @@
 --	              "Audi",
 --	              "Bently"]
 
-import Data.String.Utils
+--import Data.String.Utils
 
-ends_with :: String -> String -> Bool
-ends_with str suffix = endswith suffix str
+--ends_with :: String -> String -> Bool
+--ends_with str suffix = endswith suffix str
 
-check_googler_by :: String -> String
-check_googler_by email = 
-	if email `ends_with` "gmail.com"
-	then name_from email ++ " is a Googler!"
-	else email
-	where name_from = \full_email -> takeWhile (/= '@') full_email
+--check_googler_by :: String -> String
+--check_googler_by email = 
+--	if email `ends_with` "gmail.com"
+--	then name_from email ++ " is a Googler!"
+--	else email
+--	where name_from = \full_email -> takeWhile (/= '@') full_email
 
-main = print [check_googler_by email | email <- ["adam@gmail.com",
-                                                 "bob@gmail.com",
-                                                 "richard@gmail.com",
-                                                 "elena@yandex.ru",
-                                                 "denis@gmail.com"]]
+--main = print [check_googler_by email | email <- ["adam@gmail.com",
+--                                                 "bob@gmail.com",
+--                                                 "richard@gmail.com",
+--                                                 "elena@yandex.ru",
+--                                                 "denis@gmail.com"]]
+
+--
+-- types
+--
+
+data IP_address = IP String | Host String
+
+instance Show IP_address where
+	show (IP address) =
+	    address
+
+	show (Host address) =
+		if address == "127.0.0.1" then "localhost" else address
+
+data Transport_layer = TCP | UDP | SCTP | DCCP | SPX
+
+description_of :: Transport_layer -> String
+description_of protocol = 
+	case protocol of 
+	    TCP  -> "Transmission Control Protocol"
+	    UDP  -> "User Datagram Protocol"
+	    SCTP -> "Stream Control Transmission Protocol"
+	    DCCP -> "Datagram Congestion Control Protocol"
+	    SPX  -> "Sequenced Packet Exchange"
+
+main = print [description_of protocol | protocol <- [TCP, UDP, SCTP, DCCP, SPX]]
