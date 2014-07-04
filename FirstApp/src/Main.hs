@@ -206,32 +206,63 @@
 -- deriving
 --
 
-data IP_address = IP String
-                  deriving Show
+--data IP_address = IP String
+--                  deriving Show
 
-data User = User {
-                  first_name, 
-                  last_name,
-                  year_of_brith,
-                  email :: String,
-                  account,
-                  uid :: Integer
-                  } deriving (Show, Read, Eq)
+--data User = User {
+--                  first_name, 
+--                  last_name,
+--                  year_of_brith,
+--                  email :: String,
+--                  account,
+--                  uid :: Integer
+--                  } deriving (Show, Read, Eq)
 
-main = 
-	let object = user
-	    serialized_object = show object
-	    deserialized_object = read serialized_object
-	in
-	    print $ object == deserialized_object
-	where user = User { first_name = "Vitaly",
-                        last_name  = "Fanaskov",
-                        year_of_brith = "11.11.1111",
-                        email = "v@v.com",
-                        account = 123456789,
-                        uid = 123
-                      }
+--main = 
+--	let object = user
+--	    serialized_object = show object
+--	    deserialized_object = read serialized_object
+--	in
+--	    print $ object == deserialized_object
+--	where user = User { first_name = "Vitaly",
+--                        last_name  = "Fanaskov",
+--                        year_of_brith = "11.11.1111",
+--                        email = "v@v.com",
+--                        account = 123456789,
+--                        uid = 123
+--                      }
 
 --main = print $ "minimal Int value: " ++ show (minBound :: Int) ++
 --               ", maximum Int value: " ++ show (maxBound :: Int)
 
+--
+-- user types
+--
+
+type SHU = Integer -- SHU (Scoville Heat Units)
+
+class Pepper a_pepper where
+	simple ::a_pepper
+	color :: a_pepper -> String
+	pungency :: a_pepper -> SHU
+	name :: a_pepper -> String
+
+data Poblano = Poblano String
+data TrinidadScorpion = TrinidadScorpion
+
+instance Pepper Poblano where
+	simple = Poblano "ancho"
+	color (Poblano name) = "green"
+	pungency (Poblano name) = 1500
+	name (Poblano name) = name
+
+--instance Pepper TrinidadScorpion where
+--	color TrinidadScorpion = "red"
+--	pungency TrinidadScorpion = 855000
+
+pepper_info :: Pepper a_pepper => a_pepper -> String
+pepper_info a_pepper = 
+	show (pungency a_pepper) ++ ", " ++ color a_pepper
+
+main =
+	putStrLn $ name (simple :: Poblano)
