@@ -166,6 +166,7 @@
 --		if address == "127.0.0.1" then "localhost" else address
 
 --data Transport_layer = TCP | UDP | SCTP | DCCP | SPX
+--                       deriving (Show, Enum, Bounded)
 
 --description_of :: Transport_layer -> String
 --description_of protocol = 
@@ -176,27 +177,61 @@
 --	    DCCP -> "Datagram Congestion Control Protocol"
 --	    SPX  -> "Sequenced Packet Exchange"
 
---main = print [description_of protocol | protocol <- [TCP, UDP, SCTP, DCCP, SPX]]
+--main = print [description_of protocol | protocol <- [TCP ..]]
 
 --
 --composite types
 --
 
+--data User = User {
+--                  first_name, 
+--                  last_name,
+--                  email :: String,
+--                  account,
+--                  uid :: Integer
+--                  }
+
+--change_email :: User -> String -> User
+--change_email user new_email = user { email = new_email }
+
+--main =
+--	print $ first_name user ++ " "  ++
+--	        last_name user  ++ ", " ++
+--	        email user
+--	where user = User { first_name = "Vitaly",
+--	                    last_name  = "Fanaskov",
+--	                    email      = "v@v.com" }
+
+--
+-- deriving
+--
+
+data IP_address = IP String
+                  deriving Show
+
 data User = User {
                   first_name, 
                   last_name,
+                  year_of_brith,
                   email :: String,
                   account,
                   uid :: Integer
-                  }
+                  } deriving (Show, Read, Eq)
 
-change_email :: User -> String -> User
-change_email user new_email = user { email = new_email }
-
-main =
-	print $ first_name user ++ " "  ++
-	        last_name user  ++ ", " ++
-	        email user
+main = 
+	let object = user
+	    serialized_object = show object
+	    deserialized_object = read serialized_object
+	in
+	    print $ object == deserialized_object
 	where user = User { first_name = "Vitaly",
-	                    last_name  = "Fanaskov",
-	                    email      = "v@v.com" }
+                        last_name  = "Fanaskov",
+                        year_of_brith = "11.11.1111",
+                        email = "v@v.com",
+                        account = 123456789,
+                        uid = 123
+                      }
+
+--main = print $ "minimal Int value: " ++ show (minBound :: Int) ++
+--               ", maximum Int value: " ++ show (maxBound :: Int)
+
