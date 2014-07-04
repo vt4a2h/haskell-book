@@ -239,30 +239,57 @@
 -- user types
 --
 
-type SHU = Integer -- SHU (Scoville Heat Units)
+--type SHU = Integer -- SHU (Scoville Heat Units)
 
-class Pepper a_pepper where
-	simple ::a_pepper
-	color :: a_pepper -> String
-	pungency :: a_pepper -> SHU
-	name :: a_pepper -> String
+--class Pepper a_pepper where
+--	simple :: a_pepper
+--	color  :: a_pepper -> String
+--	pungency :: a_pepper -> SHU
+--	name :: a_pepper -> String
 
-data Poblano = Poblano String
-data TrinidadScorpion = TrinidadScorpion
+--data Poblano = Poblano String
+--data TrinidadScorpion = TrinidadScorpion
 
-instance Pepper Poblano where
-	simple = Poblano "ancho"
-	color (Poblano name) = "green"
-	pungency (Poblano name) = 1500
-	name (Poblano name) = name
+--instance Pepper Poblano where
+--	simple = Poblano "ancho"
+--	color (Poblano name) = "green"
+--	pungency (Poblano name) = 1500
+--	name (Poblano name) = name
 
 --instance Pepper TrinidadScorpion where
 --	color TrinidadScorpion = "red"
 --	pungency TrinidadScorpion = 855000
 
-pepper_info :: Pepper a_pepper => a_pepper -> String
-pepper_info a_pepper = 
-	show (pungency a_pepper) ++ ", " ++ color a_pepper
+--pepper_info :: Pepper a_pepper => a_pepper -> String
+--pepper_info a_pepper = 
+--	show (pungency a_pepper) ++ ", " ++ color a_pepper
 
-main =
-	putStrLn $ name (simple :: Poblano)
+--main =
+--	putStrLn $ name (simple :: Poblano)
+
+--
+-- not so pure function
+--
+
+--obtain_user_text :: String -> IO String
+--obtain_user_text promt = do
+--	putStrLn promt -- приглашение
+--	getLine        -- получение данных
+
+--main :: IO ()
+--main = do
+--	first_text  <- obtain_user_text "Enter your text, please: "
+--	second_text <- obtain_user_text "One more, please: "
+--	putStrLn $ "You said '" ++ first_text ++ "' and '" ++ second_text ++ "'"
+
+obtain_two_texts_from_user :: IO String
+obtain_two_texts_from_user = do
+    putStrLn "Enter your text, please: "
+    first_text <- getLine
+    putStrLn "One more, please: "
+    second_text <- getLine
+    return $ "'" ++ first_text ++ "' and '" ++ second_text ++ "'"
+    putStrLn "And third text, please: " -- мы всё ещё продолжаем наш диалог!
+    getLine
+
+main = obtain_two_texts_from_user
