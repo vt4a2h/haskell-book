@@ -282,14 +282,32 @@
 --	second_text <- obtain_user_text "One more, please: "
 --	putStrLn $ "You said '" ++ first_text ++ "' and '" ++ second_text ++ "'"
 
-obtain_two_texts_from_user :: IO String
-obtain_two_texts_from_user = do
-    putStrLn "Enter your text, please: "
-    first_text <- getLine
-    putStrLn "One more, please: "
-    second_text <- getLine
-    return $ "'" ++ first_text ++ "' and '" ++ second_text ++ "'"
-    putStrLn "And third text, please: " -- мы всё ещё продолжаем наш диалог!
-    getLine
+--obtain_two_texts_from_user :: IO String
+--obtain_two_texts_from_user = do
+--    putStrLn "Enter your text, please: "
+--    first_text <- getLine
+--    putStrLn "One more, please: "
+--    second_text <- getLine
+--    return $ "'" ++ first_text ++ "' and '" ++ second_text ++ "'"
+--    putStrLn "And third text, please: " -- мы всё ещё продолжаем наш диалог!
+--    getLine
 
-main = obtain_two_texts_from_user
+--main = obtain_two_texts_from_user
+
+--
+-- exceptions
+--
+
+import Control.Exception
+
+try_to_open_file :: FilePath -> IO String
+try_to_open_file path = 
+	readFile path `catch` possible_errors -- handle possible_errors (readFile path)
+	where
+		possible_errors :: IOException -> IO String
+		possible_errors error = return $ show error
+
+main :: IO ()
+main = do
+	file_content <- try_to_open_file "/user/foo.c"
+	putStrLn file_content
