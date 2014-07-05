@@ -356,19 +356,51 @@
 -- monads
 --
 
-import Data.Char
+--import Data.Char
 
-to_lower_case = \char -> return $ toLower char
-underline_spaces = \char -> if char == ' ' then return '_' else return char
-to_real_numbers = \char -> return $ digitToInt char
+--to_lower_case = \char -> return $ toLower char
+--underline_spaces = \char -> if char == ' ' then return '_' else return char
+--to_real_numbers = \char -> return $ digitToInt char
+
+--main :: IO ()
+--main = 
+--	--print $ name >>= to_lower_case >>= underline_spaces
+--	--where name = "Lorem ipsuM"
+--	--
+--	--print $ name >>= to_lower_case
+--	--where name = Just 'A'
+--	--
+--	print $ numbers >>= to_real_numbers
+--	where numbers = "1234567890"
+
+--import Data.Char
+
+--coefficient_from_string :: String -> Maybe Int
+--coefficient_from_string str = 
+--	if isNumber first_char
+--	then Just (digitToInt first_char)
+--	else Nothing
+--	where first_char = str !! 0 -- symbol wint index 0
+
+--check :: Maybe Int -> String
+--check a_coefficient
+--    | a_coefficient == Nothing = "Invalid string!"
+--    | otherwise = show a_coefficient
+
+--main :: IO ()
+--main = print $ check $ coefficient_from_string "1"
+
+import Data.String.Utils
+import Data.Maybe
+
+result :: Maybe String -> String
+result email = if isNothing email then "Bad email" else "Good!"
 
 main :: IO ()
 main = 
-	--print $ name >>= to_lower_case >>= underline_spaces
-	--where name = "Lorem ipsuM"
-	--
-	--print $ name >>= to_lower_case
-	--where name = Just 'A'
-	--
-	print $ numbers >>= to_real_numbers
-	where numbers = "1234567890"
+	print $ result $ Just "me@gmail.com" >>= check_format >>= check_domain
+	where check_format = \email ->
+	        if '@' `elem` email then return email else Nothing
+	      check_domain = \email ->
+	        if email `ends_with` ".com" then return email else Nothing
+	      ends_with = \str suffix -> endswith suffix str
