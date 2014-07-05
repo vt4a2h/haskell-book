@@ -58,5 +58,5 @@ executable FirstApp
   hs-source-dirs:      src
                        src/Utils
 
-  ghc-options:		   -W -XTemplateHaskell
+  ghc-options:		   -W -XTemplateHaskell -XDeriveDataTypeable
   

@@ -298,7 +298,7 @@
 -- exceptions
 --
 
-import Control.Exception
+--import Control.Exception
 
 --try_to_open_file :: FilePath -> IO String
 --try_to_open_file path = 
@@ -320,9 +320,34 @@ import Control.Exception
 --		Right content  -> putStrLn content
 --	where path = "/user/foo.c"
 
+--main :: IO ()
+--main = do
+--	result <- try $ evaluate $ 2 `div` 0 :: IO (Either SomeException Integer)
+--	case result of
+--		Left exception -> putStrLn $ "Fault: " ++ show exception
+--		Right value -> print value
+
+import Control.Exception
+import Data.String.Utils
+import Data.Typeable
+
+type Repo = String
+
+data InvalidRepository = InvalidRepository Repo
+                         deriving (Show, Typeable)
+
+instance Exception InvalidRepository
+
+extract_protocol :: String -> String
+extract_protocol path = 
+	if path `starts_with` "git" || path `starts_with` "ssh"
+	then takeWhile (/= ':') path
+	else throw $ InvalidRepository path -- not correct
+	where starts_with = \url prefix -> startswith prefix url
+
 main :: IO ()
 main = do
-	result <- try $ evaluate $ 2 `div` 0 :: IO (Either SomeException Integer)
-	case result of
-		Left exception -> putStrLn $ "Fault: " ++ show exception
-		Right value -> print value
+    result <- try $ evaluate $ extract_protocol "ss://foo@bar/proj.git" :: IO (Either SomeException String)
+    case result of
+        Left exception -> putStrLn $ "Fault: " ++ show exception
+        Right protocol -> putStrLn protocol
