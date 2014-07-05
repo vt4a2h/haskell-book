@@ -300,14 +300,29 @@
 
 import Control.Exception
 
-try_to_open_file :: FilePath -> IO String
-try_to_open_file path = 
-	readFile path `catch` possible_errors -- handle possible_errors (readFile path)
-	where
-		possible_errors :: IOException -> IO String
-		possible_errors error = return $ show error
+--try_to_open_file :: FilePath -> IO String
+--try_to_open_file path = 
+--	readFile path `catch` possible_errors -- handle possible_errors (readFile path)
+--	where
+--		possible_errors :: IOException -> IO String
+--		possible_errors error = return $ show error
+
+--main :: IO ()
+--main = do
+--	file_content <- try_to_open_file "/user/foo.c"
+--	putStrLn file_content
+
+--main :: IO ()
+--main = do
+--	result <- try $ readFile path :: IO (Either IOException String)
+--	case result of
+--		Left exception -> putStrLn $ "Fault: " ++ show exception
+--		Right content  -> putStrLn content
+--	where path = "/user/foo.c"
 
 main :: IO ()
 main = do
-	file_content <- try_to_open_file "/user/foo.c"
-	putStrLn file_content
+	result <- try $ evaluate $ 2 `div` 0 :: IO (Either SomeException Integer)
+	case result of
+		Left exception -> putStrLn $ "Fault: " ++ show exception
+		Right value -> print value
