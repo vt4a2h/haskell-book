@@ -59,4 +59,5 @@ executable FirstApp
                        src/Utils
 
   ghc-options:		   -W -XTemplateHaskell -XDeriveDataTypeable
-  
+
+  extensions: NoMonomorphismRestriction  

@@ -327,27 +327,48 @@
 --		Left exception -> putStrLn $ "Fault: " ++ show exception
 --		Right value -> print value
 
-import Control.Exception
-import Data.String.Utils
-import Data.Typeable
+--import Control.Exception
+--import Data.String.Utils
+--import Data.Typeable
 
-type Repo = String
+--type Repo = String
 
-data InvalidRepository = InvalidRepository Repo
-                         deriving (Show, Typeable)
+--data InvalidRepository = InvalidRepository Repo
+--                         deriving (Show, Typeable)
 
-instance Exception InvalidRepository
+--instance Exception InvalidRepository
 
-extract_protocol :: String -> String
-extract_protocol path = 
-	if path `starts_with` "git" || path `starts_with` "ssh"
-	then takeWhile (/= ':') path
-	else throw $ InvalidRepository path -- not correct
-	where starts_with = \url prefix -> startswith prefix url
+--extract_protocol :: String -> String
+--extract_protocol path = 
+--	if path `starts_with` "git" || path `starts_with` "ssh"
+--	then takeWhile (/= ':') path
+--	else throw $ InvalidRepository path -- not correct
+--	where starts_with = \url prefix -> startswith prefix url
+
+--main :: IO ()
+--main = do
+--    result <- try $ evaluate $ extract_protocol "ss://foo@bar/proj.git" :: IO (Either SomeException String)
+--    case result of
+--        Left exception -> putStrLn $ "Fault: " ++ show exception
+--        Right protocol -> putStrLn protocol
+
+--
+-- monads
+--
+
+import Data.Char
+
+to_lower_case = \char -> return $ toLower char
+underline_spaces = \char -> if char == ' ' then return '_' else return char
+to_real_numbers = \char -> return $ digitToInt char
 
 main :: IO ()
-main = do
-    result <- try $ evaluate $ extract_protocol "ss://foo@bar/proj.git" :: IO (Either SomeException String)
-    case result of
-        Left exception -> putStrLn $ "Fault: " ++ show exception
-        Right protocol -> putStrLn protocol
+main = 
+	--print $ name >>= to_lower_case >>= underline_spaces
+	--where name = "Lorem ipsuM"
+	--
+	--print $ name >>= to_lower_case
+	--where name = Just 'A'
+	--
+	print $ numbers >>= to_real_numbers
+	where numbers = "1234567890"
