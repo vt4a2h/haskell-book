@@ -427,9 +427,20 @@
 -- extended modules
 --
 
+--import Helpers (calibrate) -- just importing "graduate", if need exclude  import use "hidding"
 
-module Main where
-import Helpers (calibrate) -- just importing "graduate", if need exclude  import use "hidding"
+--main :: IO ()
+--main = print $ calibrate 12.4
 
-    main :: IO ()
-    main = print $ calibrate 12.4
+--
+-- recursion
+--
+
+make_list_from :: a -> Int -> [a]
+make_list_from value how_many = 
+	if how_many > 0
+		then value : make_list_from value (how_many - 1)
+		else []
+
+main :: IO()
+main = print $ make_list_from 2 3
