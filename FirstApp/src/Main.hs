@@ -409,16 +409,27 @@
 -- functors
 --
 
-data Year value = Year value
-                  deriving Show
+--data Year value = Year value
+--                  deriving Show
 
-instance Functor Year where
-	fmap magic_wand (Year value) = Year (magic_wand value)
+--instance Functor Year where
+--	fmap magic_wand (Year value) = Year (magic_wand value)
 
-increase :: Int -> Int
-increase year = year + 1
+--increase :: Int -> Int
+--increase year = year + 1
 
-main :: IO ()
-main = 
-	print $ fmap increase year
-	where year = Year 1981
+--main :: IO ()
+--main = 
+--	print $ fmap increase year
+--	where year = Year 1981
+
+--
+-- extended modules
+--
+
+
+module Main where
+import Helpers (calibrate) -- just importing "graduate", if need exclude  import use "hidding"
+
+    main :: IO ()
+    main = print $ calibrate 12.4
