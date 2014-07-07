@@ -390,17 +390,35 @@
 --main :: IO ()
 --main = print $ check $ coefficient_from_string "1"
 
-import Data.String.Utils
-import Data.Maybe
+--import Data.String.Utils
+--import Data.Maybe
 
-result :: Maybe String -> String
-result email = if isNothing email then "Bad email" else "Good!"
+--result :: Maybe String -> String
+--result email = if isNothing email then "Bad email" else "Good!"
+
+--main :: IO ()
+--main = 
+--	print $ result $ Just "me@gmail.com" >>= check_format >>= check_domain
+--	where check_format = \email ->
+--	        if '@' `elem` email then return email else Nothing
+--	      check_domain = \email ->
+--	        if email `ends_with` ".com" then return email else Nothing
+--	      ends_with = \str suffix -> endswith suffix str
+
+-- 
+-- functors
+--
+
+data Year value = Year value
+                  deriving Show
+
+instance Functor Year where
+	fmap magic_wand (Year value) = Year (magic_wand value)
+
+increase :: Int -> Int
+increase year = year + 1
 
 main :: IO ()
 main = 
-	print $ result $ Just "me@gmail.com" >>= check_format >>= check_domain
-	where check_format = \email ->
-	        if '@' `elem` email then return email else Nothing
-	      check_domain = \email ->
-	        if email `ends_with` ".com" then return email else Nothing
-	      ends_with = \str suffix -> endswith suffix str
+	print $ fmap increase year
+	where year = Year 1981
